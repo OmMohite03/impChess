@@ -1,40 +1,3 @@
-let lastPlacedPiece = null;
-// right side btns
-function createRemoveBtn() {
-  const removeBtn = document.createElement("button");
-  removeBtn.textContent = "remove piece";
-  removeBtn.style.position = "absolute";
-  removeBtn.style.bottom = "10%";
-  removeBtn.style.left = "0%";
-  removeBtn.style.padding = "10px 20px";
-  removeBtn.style.backgroundColor = "red";
-  removeBtn.style.color = "white";
-  removeBtn.style.border = "none";
-  removeBtn.style.cursor = "pointer";
-  removeBtn.style.width = "21%";
-
-  // removing a piece
-  removeBtn.addEventListener("click", () => {
-    removePiece();
-    // Re-enable buttons after removing the piece
-    const buttons = document.querySelectorAll(".btn");
-    buttons.forEach((btn) => {
-      btn.removeAttribute("disabled");
-    });
-  });
-
-  // Function to remove the piece
-  function removePiece() {
-    if (lastPlacedPiece) {
-      lastPlacedPiece.style.backgroundImage = "";
-      lastPlacedPiece = null;
-      piecePlaced = false; // Reset the piecePlaced flag
-    }
-  }
-
-  document.body.appendChild(removeBtn);
-}
-
 // Chess Board Layout and Markups
 
 const labelRows = ["8", "7", "6", "5", "4", "3", "2", "1"];
@@ -211,7 +174,7 @@ function placePiece(event) {
         btn.setAttribute("disabled", true);
       });
 
-      piecePlaced = true; 
+      piecePlaced = true;
       lastPlacedPiece = target;
     }
   }
@@ -219,6 +182,43 @@ function placePiece(event) {
 
 const boardDiv = document.getElementById("board");
 boardDiv.addEventListener("click", placePiece);
+
+let lastPlacedPiece = null;
+// right side btns
+function createRemoveBtn() {
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "remove piece";
+  removeBtn.style.position = "absolute";
+  removeBtn.style.bottom = "10%";
+  removeBtn.style.left = "0%";
+  removeBtn.style.padding = "10px 20px";
+  removeBtn.style.backgroundColor = "red";
+  removeBtn.style.color = "white";
+  removeBtn.style.border = "none";
+  removeBtn.style.cursor = "pointer";
+  removeBtn.style.width = "21%";
+
+  // removing a piece
+  removeBtn.addEventListener("click", () => {
+    removePiece();
+    // Re-enable buttons after removing the piece
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach((btn) => {
+      btn.removeAttribute("disabled");
+    });
+  });
+
+  // Function to remove the piece
+  function removePiece() {
+    if (lastPlacedPiece) {
+      lastPlacedPiece.style.backgroundImage = "";
+      lastPlacedPiece = null;
+      piecePlaced = false; // Reset the piecePlaced flag
+    }
+  }
+
+  document.body.appendChild(removeBtn);
+}
 
 drawBoard();
 leftTrayBtns(tray);
