@@ -211,7 +211,7 @@ function placePiece(event) {
         btn.setAttribute("disabled", true);
       });
 
-      piecePlaced = true; // Set piecePlaced to true after placing a piece
+      piecePlaced = true; 
       lastPlacedPiece = target;
     }
   }
