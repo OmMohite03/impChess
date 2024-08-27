@@ -13,8 +13,8 @@ body {
   position: relative;
   z-index: 1;
 }
+
 #board {
-  display: flex;
   justify-content: center;
   width: fit-content;
 }
