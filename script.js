@@ -9,14 +9,10 @@ const columns = Array(8).fill(null);
 function drawBoard() {
   //board properties
   const boardDiv = document.getElementById("board");
-  boardDiv.style.margin = "auto";
+  boardDiv.classList.add("boardDiv");
   boardDiv.style.display = "grid";
   boardDiv.style.gridTemplateRows = `repeat(${rows.length + 1}, 50px)`;
   boardDiv.style.gridTemplateColumns = `50px repeat(${columns.length}, 50px) 50px`;
-  boardDiv.style.backgroundColor = "white";
-  boardDiv.style.border = "50px solid brown";
-
-  // top column labels (A-H)
   const topLeftCorner = document.createElement("div");
   boardDiv.appendChild(topLeftCorner);
 
@@ -24,9 +20,6 @@ function drawBoard() {
     const colLabel = document.createElement("div");
     colLabel.classList.add("col-label");
     colLabel.textContent = label.toUpperCase();
-    colLabel.style.textAlign = "center";
-    colLabel.style.verticalAlign = "middle";
-    colLabel.style.fontWeight = "bold";
     boardDiv.appendChild(colLabel);
   });
 
@@ -39,9 +32,6 @@ function drawBoard() {
     const rowLabelLeft = document.createElement("div");
     rowLabelLeft.classList.add("row-label");
     rowLabelLeft.textContent = labelRows[i];
-    rowLabelLeft.style.textAlign = "center";
-    rowLabelLeft.style.verticalAlign = "middle";
-    rowLabelLeft.style.fontWeight = "bold";
     boardDiv.appendChild(rowLabelLeft);
 
     // Create row with 8 boxes
@@ -49,10 +39,6 @@ function drawBoard() {
       // creating & styling boxes
       const box = document.createElement("div");
       box.classList.add("box");
-      box.style.width = "50px";
-      box.style.height = "50px";
-      box.style.display = "flex";
-      box.style.border = "1px solid black";
       boardDiv.appendChild(box);
 
       // coloring boxes black
@@ -68,9 +54,6 @@ function drawBoard() {
     const rowLabelRight = document.createElement("div");
     rowLabelRight.classList.add("row-label");
     rowLabelRight.textContent = labelRows[i];
-    rowLabelRight.style.textAlign = "center";
-    rowLabelRight.style.verticalAlign = "middle";
-    rowLabelRight.style.fontWeight = "bold";
     boardDiv.appendChild(rowLabelRight);
   }
 
@@ -82,9 +65,6 @@ function drawBoard() {
     const colLabel = document.createElement("div");
     colLabel.classList.add("col-label");
     colLabel.textContent = label.toLowerCase();
-    colLabel.style.textAlign = "center";
-    colLabel.style.verticalAlign = "middle";
-    colLabel.style.fontWeight = "bold";
     boardDiv.appendChild(colLabel);
   });
 
@@ -99,16 +79,6 @@ const body = document.querySelector("body");
 function leftTray() {
   const leftTray = document.createElement("div");
   leftTray.classList.add("leftSideTray");
-  leftTray.style.display = "flex";
-  leftTray.style.flexDirection = "column";
-  leftTray.style.position = "absolute";
-  leftTray.style.top = "10%";
-  leftTray.style.left = "0%";
-  leftTray.style.height = "70vh";
-  leftTray.style.width = "20vw";
-  leftTray.style.backgroundColor = "brown";
-  leftTray.style.border = "5px solid white";
-
   body.appendChild(leftTray);
   return leftTray;
 }
@@ -146,8 +116,6 @@ function leftTrayBtns(tray) {
         leftBtn.textContent = "pawn";
         break;
     }
-    leftBtn.style.width = "50%";
-    leftBtn.style.margin = "auto";
 
     leftBtn.addEventListener("click", () => {
       selectedPiece = leftBtn.textContent.toLowerCase();
@@ -184,19 +152,11 @@ const boardDiv = document.getElementById("board");
 boardDiv.addEventListener("click", placePiece);
 
 let lastPlacedPiece = null;
-// right side btns
+// right-side btns
 function createRemoveBtn() {
   const removeBtn = document.createElement("button");
+  removeBtn.classList.add("removeBtn");
   removeBtn.textContent = "remove piece";
-  removeBtn.style.position = "absolute";
-  removeBtn.style.bottom = "10%";
-  removeBtn.style.left = "0%";
-  removeBtn.style.padding = "10px 20px";
-  removeBtn.style.backgroundColor = "red";
-  removeBtn.style.color = "white";
-  removeBtn.style.border = "none";
-  removeBtn.style.cursor = "pointer";
-  removeBtn.style.width = "21%";
 
   // removing a piece
   removeBtn.addEventListener("click", () => {
@@ -208,12 +168,12 @@ function createRemoveBtn() {
     });
   });
 
-  // Function to remove the piece
+  // Func remove the piece
   function removePiece() {
     if (lastPlacedPiece) {
       lastPlacedPiece.style.backgroundImage = "";
       lastPlacedPiece = null;
-      piecePlaced = false; // Reset the piecePlaced flag
+      piecePlaced = false;
     }
   }
 
