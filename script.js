@@ -20,19 +20,21 @@ function drawBoard() {
     document.createElement("div"),
     ...labels.cols.map((l) => {
       const colLabel = document.createElement("div");
-      colLabel.classList.add("col-label");
+      // colLabel.classList.add("col-label");
+      colLabel.className= "col-label";
       colLabel.textContent = l.toUpperCase();
       return colLabel;
     }),
-    document.createElement("div")
+     document.createElement("div")
   );
 
   // Creating chess-board
   rows.forEach((_, i) => {
     // Row labels and boxes
     const createBox = (j) => {
-      const box = document.createElement("div");
+      var box = document.createElement("div");
       box.classList.add("box");
+      box.id=`${rows[i]}`;
       if ((i + j) % 2 !== 0) box.style.backgroundColor = "black";
       return box;
     };
@@ -99,7 +101,7 @@ function placePiece(event) {
       .forEach((btn) => btn.setAttribute("disabled", true));
     
       // piece's possible moves    
-      let currentLoc = "";
+      let currentLoc = event.target;
       console.log(`${selectedPiece}'s current location: ${currentLoc}`);
     piecePlaced = true;
     lastPlacedPiece = target;
