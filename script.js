@@ -41,7 +41,7 @@ function drawBoard() {
   rows.forEach((_, i) => {
     boardDiv.append(
       createLabel(labels.rows[i]), // Left row label
-      ...cols.map((_, j) => createBox(i, j)), // Chessboard boxes with IDs
+      ...cols.map((_, j) => createBox(i, j)), // boxes with IDs
       createLabel(labels.rows[i]) // Right row label
     );
   });
@@ -87,6 +87,22 @@ function createLeftTray() {
   return tray;
 }
 
+
+let currentPawnMoves = []; 
+
+function colorBox(pawnMoves) {
+  const updatedBox = document.getElementById(pawnMoves);
+  updatedBox.style.border = "2px dotted red";
+}
+
+function removeBoxColor() {
+  currentPawnMoves.forEach((move) => {
+    const removedBox = document.getElementById(move);
+    removedBox.style.border = "1px solid black"; 
+  });
+  currentPawnMoves = []; 
+}
+
 // Placing a piece
 function placePiece(event) {
   const target = event.target;
@@ -94,16 +110,32 @@ function placePiece(event) {
     target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-W.png')`;
     target.style.backgroundSize = "cover";
     target.style.backgroundPosition = "center";
-    document
-      .querySelectorAll(".btn")
-      .forEach((btn) => btn.setAttribute("disabled", true));
-    
-    // piece's current loc   
+    document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
+
     let currentLoc = target.id; 
     console.log(`${selectedPiece}'s current location: ${currentLoc}`);
-    
     piecePlaced = true;
     lastPlacedPiece = target;
+
+    function possibleMoves(selectedPiece) {
+      let currCoordStr = [...currentLoc];
+      let [i, j] = currCoordStr;
+
+      if (selectedPiece == "pawn") {
+        let coordJ = parseInt(j) + 1;
+        let pawnMoves = i + coordJ;
+        if (j < 8) {
+          console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
+          colorBox(pawnMoves);
+          currentPawnMoves.push(pawnMoves); 
+        } else {
+          console.log(`possible moves of ${selectedPiece}: movement not possible`);
+        }
+      }
+      // Add other piece moves here if needed
+    }
+
+    possibleMoves(selectedPiece);
   }
 }
 
@@ -118,10 +150,9 @@ function createRemoveBtn() {
       lastPlacedPiece.style.backgroundImage = "";
       lastPlacedPiece = null;
       piecePlaced = false;
+      removeBoxColor(); 
     }
-    document
-      .querySelectorAll(".btn")
-      .forEach((btn) => btn.removeAttribute("disabled"));
+    document.querySelectorAll(".btn").forEach((btn) => btn.removeAttribute("disabled"));
   });
 
   document.body.appendChild(removeBtn);
@@ -131,3 +162,4 @@ drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
 createRemoveBtn();
+
