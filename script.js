@@ -282,6 +282,7 @@ function placePiece(event) {
           colorBox(move);
           currentPawnMoves.push(move);
         }
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
       }
       
     
