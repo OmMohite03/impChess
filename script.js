@@ -150,25 +150,25 @@ function placePiece(event) {
         //   console.log(`possible moves of ${selectedPiece}: movement not possible`);
         // }
 
-      } else if(selectedPiece == "rook"){
-          // looping thorugh cols
-          for(let c = 0; c<labels.cols[8]; c++){             
-            if(i==labels.cols[1]){  //in col A
-              // looping thru rows
-              for(let r=0; r<labels.rows[8]; r++){
-                if(j==labels.rows[8]){ // for row 8, i.e A8
-                  rookMoves="";
-                  for(let c1=0; c1<labels.cols[8]; c1++){ // A1, B1, H1
-                  rookMoves=`${labels.cols[c1], 8}`;   
-                  currentPawnMoves.push(rookMoves);
-                  }
-                }
-              }
-              console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves}`);
-              colorBox(currentPawnMoves);
-            } 
+      } else if (selectedPiece == "rook") {
+        // Horizontal moves
+        for (let col = 0; col < labels.cols.length; col++) {
+          if (labels.cols[col] !== i) {
+            let rookMoves = `${labels.cols[col]}${j}`;
+            currentPawnMoves.push(rookMoves);
           }
         }
+        // Vertical moves
+        for (let row = 0; row < labels.rows.length; row++) {
+          if (labels.rows[row] !== j) {
+            let rookMoves = `${i}${labels.rows[row]}`;
+            currentPawnMoves.push(rookMoves);
+          }
+        }
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+        currentPawnMoves.forEach((move) => colorBox(move));
+      }else if()
+      
       
     }
 
