@@ -121,7 +121,7 @@ function placePiece(event) {
       let currCoordStr = [...currentLoc];
       let [i, j] = currCoordStr;
 
-      // for pawn
+      // for pieces
       if (selectedPiece == "pawn") {
         let coordJ = parseInt(j) + 1;
         let pawnMoves = i + coordJ;
