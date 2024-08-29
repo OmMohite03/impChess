@@ -223,7 +223,67 @@ function placePiece(event) {
       
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
         currentPawnMoves.forEach((move) => colorBox(move));
+      }else if (selectedPiece == "king") {
+        let colIndex = labels.cols.indexOf(i);
+        let rowIndex = labels.rows.indexOf(j);
+      
+        // Up moves
+        if (rowIndex + 1 < labels.rows.length) {
+          let move = `${i}${labels.rows[rowIndex + 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Down moves
+        if (rowIndex - 1 >= 0) {
+          let move = `${i}${labels.rows[rowIndex - 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Left moves
+        if (colIndex - 1 >= 0) {
+          let move = `${labels.cols[colIndex - 1]}${j}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Right moves
+        if (colIndex + 1 < labels.cols.length) {
+          let move = `${labels.cols[colIndex + 1]}${j}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Up-Left moves
+        if (colIndex - 1 >= 0 && rowIndex + 1 < labels.rows.length) {
+          let move = `${labels.cols[colIndex - 1]}${labels.rows[rowIndex + 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Up-Right moves
+        if (colIndex + 1 < labels.cols.length && rowIndex + 1 < labels.rows.length) {
+          let move = `${labels.cols[colIndex + 1]}${labels.rows[rowIndex + 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Down-Left moves
+        if (colIndex - 1 >= 0 && rowIndex - 1 >= 0) {
+          let move = `${labels.cols[colIndex - 1]}${labels.rows[rowIndex - 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Down-Right moves
+        if (colIndex + 1 < labels.cols.length && rowIndex - 1 >= 0) {
+          let move = `${labels.cols[colIndex + 1]}${labels.rows[rowIndex - 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
       }
+      
     
     }
 
