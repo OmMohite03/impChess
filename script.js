@@ -154,27 +154,27 @@ function placePiece(event) {
       } else if (selectedPiece == "bishop") {
         let [colIndex, rowIndex] = [labels.cols.indexOf(i), labels.rows.indexOf(j)];
       
-        // 1st quadrant: i+1, j+1
-        for (let step = 1; colIndex + step < labels.cols.length && rowIndex + step < labels.rows.length; step++) {
-          let move = `${labels.cols[colIndex + step]}${labels.rows[rowIndex + step]}`;
+        // 1st quad: i+1, j+1
+        for (let count = 1; colIndex + count < labels.cols.length && rowIndex + count < labels.rows.length; count++) {
+          let move = `${labels.cols[colIndex + count]}${labels.rows[rowIndex + count]}`;
           currentPawnMoves.push(move);
         }
       
-        // 2nd quadrant: i-1, j+1
-        for (let step = 1; colIndex - step >= 0 && rowIndex + step < labels.rows.length; step++) {
-          let move = `${labels.cols[colIndex - step]}${labels.rows[rowIndex + step]}`;
+        // 2nd quadr: i-1, j+1
+        for (let count = 1; colIndex - count >= 0 && rowIndex + count < labels.rows.length; count++) {
+          let move = `${labels.cols[colIndex - count]}${labels.rows[rowIndex + count]}`;
           currentPawnMoves.push(move);
         }
       
-        // 3rd quadrant: i+1, j-1
-        for (let step = 1; colIndex + step < labels.cols.length && rowIndex - step >= 0; step++) {
-          let move = `${labels.cols[colIndex + step]}${labels.rows[rowIndex - step]}`;
+        // 3rd quad: i+1, j-1
+        for (let count = 1; colIndex + count < labels.cols.length && rowIndex - count >= 0; count++) {
+          let move = `${labels.cols[colIndex + count]}${labels.rows[rowIndex - count]}`;
           currentPawnMoves.push(move);
         }
       
-        // 4th quadrant: i-1, j-1
-        for (let step = 1; colIndex - step >= 0 && rowIndex - step >= 0; step++) {
-          let move = `${labels.cols[colIndex - step]}${labels.rows[rowIndex - step]}`;
+        // 4th quad: i-1, j-1
+        for (let count = 1; colIndex - count >= 0 && rowIndex - count >= 0; count++) {
+          let move = `${labels.cols[colIndex - count]}${labels.rows[rowIndex - count]}`;
           currentPawnMoves.push(move);
         }
       
