@@ -92,7 +92,7 @@ let currentPawnMoves = [];
 
 function colorBox(pawnMoves) {
   const updatedBox = document.getElementById(pawnMoves);
-  updatedBox.style.border = "2px dotted red";
+  updatedBox.style.border = "4px solid gold";
 }
 
 function removeBoxColor() {
@@ -133,22 +133,6 @@ function placePiece(event) {
           console.log(`possible moves of ${selectedPiece}: movement not possible`);
         }
         
-      //   if(i===labels.cols[0]){
-      //     if(j===labels.rows[7]){
-      //       console.log(`possible moves of ${selectedPiece}: ${i}7`);
-      //       colorBox(pawnMoves);
-      //       currentPawnMoves.push(pawnMoves); 
-      //     }
-      //   }
-
-        // filhal ke lie neeche walo se mujhe lena dena nahi
-        // if (i!=labels.cols[0] || j < 8) {
-        //   console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
-        //   colorBox(pawnMoves);
-        //   currentPawnMoves.push(pawnMoves); 
-        // } else {
-        //   console.log(`possible moves of ${selectedPiece}: movement not possible`);
-        // }
 
       } else if (selectedPiece == "rook") {
         // Horizontal moves
@@ -167,9 +151,37 @@ function placePiece(event) {
         }
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
         currentPawnMoves.forEach((move) => colorBox(move));
-      }else if()
+      } else if (selectedPiece == "bishop") {
+        let [colIndex, rowIndex] = [labels.cols.indexOf(i), labels.rows.indexOf(j)];
       
+        // 1st quadrant: i+1, j+1
+        for (let step = 1; colIndex + step < labels.cols.length && rowIndex + step < labels.rows.length; step++) {
+          let move = `${labels.cols[colIndex + step]}${labels.rows[rowIndex + step]}`;
+          currentPawnMoves.push(move);
+        }
       
+        // 2nd quadrant: i-1, j+1
+        for (let step = 1; colIndex - step >= 0 && rowIndex + step < labels.rows.length; step++) {
+          let move = `${labels.cols[colIndex - step]}${labels.rows[rowIndex + step]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        // 3rd quadrant: i+1, j-1
+        for (let step = 1; colIndex + step < labels.cols.length && rowIndex - step >= 0; step++) {
+          let move = `${labels.cols[colIndex + step]}${labels.rows[rowIndex - step]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        // 4th quadrant: i-1, j-1
+        for (let step = 1; colIndex - step >= 0 && rowIndex - step >= 0; step++) {
+          let move = `${labels.cols[colIndex - step]}${labels.rows[rowIndex - step]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+        currentPawnMoves.forEach((move) => colorBox(move));
+      }
+    
     }
 
     possibleMoves(selectedPiece);
