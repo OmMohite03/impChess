@@ -343,9 +343,7 @@ function placePiece(event) {
           currentPawnMoves.push(move);
         }
       }
-      
-        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
-      }
+            }
     }
 
     possibleMoves(selectedPiece);
