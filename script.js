@@ -180,6 +180,49 @@ function placePiece(event) {
       
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
         currentPawnMoves.forEach((move) => colorBox(move));
+      }else if(selectedPiece == "queen"){
+        // Horizontal moves
+        for (let col = 0; col < labels.cols.length; col++) {
+          if (labels.cols[col] !== i) {
+            let rookMoves = `${labels.cols[col]}${j}`;
+            currentPawnMoves.push(rookMoves);
+          }
+        }
+        // Vertical moves
+        for (let row = 0; row < labels.rows.length; row++) {
+          if (labels.rows[row] !== j) {
+            let rookMoves = `${i}${labels.rows[row]}`;
+            currentPawnMoves.push(rookMoves);
+          }
+        }
+        let [colIndex, rowIndex] = [labels.cols.indexOf(i), labels.rows.indexOf(j)];
+      
+        // 1st quad: i+1, j+1
+        for (let count = 1; colIndex + count < labels.cols.length && rowIndex + count < labels.rows.length; count++) {
+          let move = `${labels.cols[colIndex + count]}${labels.rows[rowIndex + count]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        // 2nd quadr: i-1, j+1
+        for (let count = 1; colIndex - count >= 0 && rowIndex + count < labels.rows.length; count++) {
+          let move = `${labels.cols[colIndex - count]}${labels.rows[rowIndex + count]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        // 3rd quad: i+1, j-1
+        for (let count = 1; colIndex + count < labels.cols.length && rowIndex - count >= 0; count++) {
+          let move = `${labels.cols[colIndex + count]}${labels.rows[rowIndex - count]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        // 4th quad: i-1, j-1
+        for (let count = 1; colIndex - count >= 0 && rowIndex - count >= 0; count++) {
+          let move = `${labels.cols[colIndex - count]}${labels.rows[rowIndex - count]}`;
+          currentPawnMoves.push(move);
+        }
+      
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+        currentPawnMoves.forEach((move) => colorBox(move));
       }
     
     }
