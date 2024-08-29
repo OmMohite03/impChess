@@ -283,14 +283,73 @@ function placePiece(event) {
           currentPawnMoves.push(move);
         }
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+      }else if (selectedPiece == "knight") {
+        let colIndex = labels.cols.indexOf(i);
+        let rowIndex = labels.rows.indexOf(j);
+      
+        // Up & Left moves
+        if (colIndex - 1 >= 0 && rowIndex - 2 >= 0) {
+          let move = `${labels.cols[colIndex - 1]}${labels.rows[rowIndex - 2]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Up & Right moves
+        if (colIndex + 1 < labels.cols.length && rowIndex - 2 >= 0) {
+          let move = `${labels.cols[colIndex + 1]}${labels.rows[rowIndex - 2]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Down & Right moves
+        if (colIndex + 1 < labels.cols.length && rowIndex + 2 < labels.rows.length) {
+          let move = `${labels.cols[colIndex + 1]}${labels.rows[rowIndex + 2]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Down & Left moves
+        if (colIndex - 1 >= 0 && rowIndex + 2 < labels.rows.length) {
+          let move = `${labels.cols[colIndex - 1]}${labels.rows[rowIndex + 2]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Right & Down moves
+        if (colIndex + 2 < labels.cols.length && rowIndex + 1 < labels.rows.length) {
+          let move = `${labels.cols[colIndex + 2]}${labels.rows[rowIndex + 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Right & Up moves
+        if (colIndex + 2 < labels.cols.length && rowIndex - 1 >= 0) {
+          let move = `${labels.cols[colIndex + 2]}${labels.rows[rowIndex - 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Left & Up moves
+        if (colIndex - 2 >= 0 && rowIndex - 1 >= 0) {
+          let move = `${labels.cols[colIndex - 2]}${labels.rows[rowIndex - 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
+      
+        // Left & Down moves
+        if (colIndex - 2 >= 0 && rowIndex + 1 < labels.rows.length) {
+          let move = `${labels.cols[colIndex - 2]}${labels.rows[rowIndex + 1]}`;
+          colorBox(move);
+          currentPawnMoves.push(move);
+        }
       }
       
-    
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+      }
     }
 
     possibleMoves(selectedPiece);
   }
-}
 
 // Removing piece
 function createRemoveBtn() {
