@@ -92,7 +92,12 @@ function movesBox(){
   movesBox.classList.add("movesBox");
   document.body.appendChild(movesBox);
   const movesHeading = document.createElement("h1");
+  movesHeading.textContent=`Selected Piece ${selectedPiece}`;
+  movesHeading.style.fontFamily="San Serif"
   movesHeading.textContent="Selected Piece ";
+
+  movesBox.appendChild(movesHeading);
+  
 }
 
 //  actually stores moves for every piece
