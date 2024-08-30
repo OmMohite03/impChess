@@ -92,13 +92,19 @@ let currentPawnMoves = [];
 
 function colorBox(pawnMoves) {
   const updatedBox = document.getElementById(pawnMoves);
-  updatedBox.style.border = "4px solid gold";
+  updatedBox.style.backgroundImage = "url('./assets/red.jpg')";
+  updatedBox.style.backgroundSize="contain";
+  updatedBox.style.opacity="0.7";
+  updatedBox.style.border="1px solid black";
+
 }
 
 function removeBoxColor() {
   currentPawnMoves.forEach((move) => {
     const removedBox = document.getElementById(move);
-    removedBox.style.border = "1px solid black"; 
+    removedBox.style.border = "1px solid black";
+    removedBox.style.opacity = "1";
+    removedBox.style.backgroundImage=""; 
   });
   currentPawnMoves = []; 
 }
