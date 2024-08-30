@@ -342,6 +342,8 @@ function placePiece(event) {
           colorBox(move);
           currentPawnMoves.push(move);
         }
+        console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
+
       }
             }
     }
@@ -361,6 +363,7 @@ function createRemoveBtn() {
       lastPlacedPiece = null;
       piecePlaced = false;
       removeBoxColor(); 
+      console.clear();
     }
     document.querySelectorAll(".btn").forEach((btn) => btn.removeAttribute("disabled"));
   });
