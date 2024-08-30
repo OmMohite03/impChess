@@ -159,7 +159,7 @@ function placePiece(event) {
         }else if(userPieceColor=="black"){
           let coordJ = parseInt(j) - 1;
           let pawnMoves = i + coordJ;
-          if (j < 8) {
+          if (j < 0) {
             console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
             colorBox(pawnMoves);
             currentPawnMoves.push(pawnMoves); 
