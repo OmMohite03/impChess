@@ -425,17 +425,23 @@ function createRemoveBtn() {
       lastPlacedPiece = null;
       piecePlaced = false;
       removeBoxColor(); 
-      console.clear();
+      currentPawnMoves = []; 
     }
+    selectedPiece = ""; 
+
     document.querySelectorAll(".btn").forEach((btn) => btn.removeAttribute("disabled"));
 
     if (movesListList) {
       movesListList.remove();
       movesListList = null; 
     }
+    
+    console.clear();
   });
+
   document.body.appendChild(removeBtn);
 }
+
 
 drawBoard();
 createLeftTray();
