@@ -409,10 +409,33 @@ function placePiece(event) {
             }
     }
     possibleMoves(selectedPiece);
-    MovesDisplay();
-
+    MovesDisplay();  
+    return target; 
   }
-
+  
+  function movePiece(event) {
+    const target2 = event.target;
+    if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
+      let currentLoc2 = target2.id;
+      
+      if (currentPawnMoves.includes(currentLoc2)) {
+        target2.style.backgroundImage = lastPlacedPiece.style.backgroundImage;
+        target2.style.backgroundSize = "cover";
+        target2.style.backgroundPosition = "center";
+  
+        lastPlacedPiece.style.backgroundImage = "";
+  
+        lastPlacedPiece = target2;
+        
+        currentPawnMoves = [];
+        movesText.textContent = "Piece moved successfully!";
+      } else {
+        movesText.textContent = "Illegal move :(";
+      }
+    }
+  }
+  
+  
 // Removing piece
 function createRemoveBtn() {
   const removeBtn = document.createElement("button");
@@ -425,7 +448,11 @@ function createRemoveBtn() {
       lastPlacedPiece = null;
       piecePlaced = false;
       removeBoxColor(); 
+      currentPawnMoves.forEach((i)=>{
+        i.style.backgroundImage="";
+      });
       currentPawnMoves = []; 
+      
     }
     selectedPiece = ""; 
 
@@ -446,4 +473,5 @@ function createRemoveBtn() {
 drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
+document.getElementById("board").addEventListener("click", movePiece);
 createRemoveBtn();
