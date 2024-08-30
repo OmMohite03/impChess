@@ -56,17 +56,29 @@ body {
 
 .movesBox {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  bottom: 5%;
+  bottom: 2%;
   left: 31%;
   margin: auto;
-  height: 20vh;
+  height: 15vh;
   width: 38%;
-  background-color: brown;
-  border: 5px solid white
+  background-color: brown; 
+  border: 5px solid white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); 
+  border-radius: 10px; 
 }
 
 /* movesBox content styles */
+.movesHeading {
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
 
 
 

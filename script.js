@@ -86,19 +86,34 @@ function createLeftTray() {
   });
   return tray;
 }
+let movesListList; //kind of a list to store moveList
 
-function movesBox(){
+//  displaying the moves
+function movesBox() {
   const movesBox = document.createElement("div");
   movesBox.classList.add("movesBox");
   document.body.appendChild(movesBox);
+
   const movesHeading = document.createElement("h1");
-  movesHeading.textContent=`Selected Piece ${selectedPiece}`;
-  movesHeading.style.fontFamily="San Serif"
-  movesHeading.textContent="Selected Piece ";
+  movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
+  movesHeading.classList.add("movesHeading");
 
   movesBox.appendChild(movesHeading);
-  
+
+  // Display possible moves
+  const movesList = document.createElement("ul");
+  movesList.classList.add("movesList");
+
+  currentPawnMoves.forEach(move => {
+    const moveItem = document.createElement("li");
+    moveItem.textContent = move;
+    movesList.appendChild(moveItem);
+  });
+
+  movesBox.appendChild(movesList);
+  movesListList = movesList;
 }
+
 
 //  actually stores moves for every piece
 let currentPawnMoves = []; 
@@ -172,7 +187,7 @@ function placePiece(event) {
         }else if(userPieceColor=="black"){
           let coordJ = parseInt(j) - 1;
           let pawnMoves = i + coordJ;
-          if (j < 0) {
+          if (j > 0) {
             console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
             colorBox(pawnMoves);
             currentPawnMoves.push(pawnMoves); 
@@ -394,6 +409,8 @@ function placePiece(event) {
             }
     }
     possibleMoves(selectedPiece);
+    movesBox();
+
   }
 
 // Removing piece
@@ -411,12 +428,15 @@ function createRemoveBtn() {
       console.clear();
     }
     document.querySelectorAll(".btn").forEach((btn) => btn.removeAttribute("disabled"));
-  });
 
+    if (movesListList) {
+      movesListList.remove();
+      movesListList = null; 
+    }
+  });
   document.body.appendChild(removeBtn);
 }
 
-movesBox();
 drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
