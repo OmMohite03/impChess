@@ -89,33 +89,33 @@ function createLeftTray() {
 let movesListList; //kind of a list to store moveList
 
 //  displaying the moves
-function movesBox() {
-  const movesBox = document.createElement("div");
-  movesBox.classList.add("movesBox");
-  document.body.appendChild(movesBox);
+function MovesDisplay() {
+  // heading box
+  const movesHeadingBox = document.createElement("div");
+  movesHeadingBox.classList.add("movesHeadingBox");
+  document.body.appendChild(movesHeadingBox);
 
   const movesHeading = document.createElement("h1");
   movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
   movesHeading.classList.add("movesHeading");
 
-  movesBox.appendChild(movesHeading);
+  movesHeadingBox.appendChild(movesHeading);
 
-  // Display possible moves
-  const movesList = document.createElement("ul");
-  movesList.classList.add("movesList");
+  // moves display box
+  const movesDisplayBox = document.createElement("div");
+  movesDisplayBox.classList.add("movesDisplayBox");
 
-  currentPawnMoves.forEach(move => {
-    const moveItem = document.createElement("li");
-    moveItem.textContent = move;
-    movesList.appendChild(moveItem);
-  });
+  const movesText = document.createElement("p");
+  movesText.textContent = currentPawnMoves.join(", ");
+  movesText.classList.add("movesText");
 
-  movesBox.appendChild(movesList);
-  movesListList = movesList;
+  movesDisplayBox.appendChild(movesText);
+  document.body.appendChild(movesDisplayBox);
 }
 
 
-//  actually stores moves for every piece
+
+//  actually stores moves for every piece!
 let currentPawnMoves = []; 
 
 function colorBox(pawnMoves) {
@@ -409,7 +409,7 @@ function placePiece(event) {
             }
     }
     possibleMoves(selectedPiece);
-    movesBox();
+    MovesDisplay();
 
   }
 
