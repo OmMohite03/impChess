@@ -70,7 +70,7 @@ function createLabel(text) {
 // leftTray & btns
 function createLeftTray() {
   const tray = document.createElement("div");
-  tray.classList.add("leftSideTray");
+  tray.classList.add("rightSideTray");
   document.body.appendChild(tray);
 
   const pieces = ["king", "queen", "bishop", "rook", "knight", "pawn"];
@@ -85,6 +85,14 @@ function createLeftTray() {
     tray.appendChild(btn);
   });
   return tray;
+}
+
+function movesBox(){
+  const movesBox = document.createElement("div");
+  movesBox.classList.add("movesBox");
+  document.body.appendChild(movesBox);
+  const movesHeading = document.createElement("h1");
+  movesHeading.textContent="Selected Piece ";
 }
 
 //  actually stores moves for every piece
@@ -403,6 +411,7 @@ function createRemoveBtn() {
   document.body.appendChild(removeBtn);
 }
 
+movesBox();
 drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
