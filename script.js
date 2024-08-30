@@ -113,15 +113,32 @@ function removeBoxColor() {
 function placePiece(event) {
   const target = event.target;
   if (target.classList.contains("box") && selectedPiece && !piecePlaced) {
-    target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-W.png')`;
-    target.style.backgroundSize = "cover";
-    target.style.backgroundPosition = "center";
-    document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
+    let userPieceColor=prompt("choose piece color", "white");
+    switch (userPieceColor) {
+      case "white":
+        target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-W.png')`;
+        target.style.backgroundSize = "cover";
+        target.style.backgroundPosition = "center";
+        document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
+        break;
+  
+      case "black":
+        target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-B.png')`;
+        target.style.backgroundSize = "cover";
+        target.style.backgroundPosition = "center";
+        document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
+        break;
+  
+      default:
+        userPieceColor = prompt("choose piece color", "white");
+        break;
+    }
 
     let currentLoc = target.id; 
     console.log(`${selectedPiece}'s current location: ${currentLoc}`);
     piecePlaced = true;
     lastPlacedPiece = target;
+
 
     function possibleMoves(selectedPiece) {
       let currCoordStr = [...currentLoc];
@@ -129,17 +146,27 @@ function placePiece(event) {
 
       // for pieces
       if (selectedPiece == "pawn") {
-        let coordJ = parseInt(j) + 1;
-        let pawnMoves = i + coordJ;
-        if (j < 8) {
-          console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
-          colorBox(pawnMoves);
-          currentPawnMoves.push(pawnMoves); 
-        } else {
-          console.log(`possible moves of ${selectedPiece}: movement not possible`);
+        if(userPieceColor=="white"){
+          let coordJ = parseInt(j) + 1;
+          let pawnMoves = i + coordJ;
+          if (j < 8) {
+            console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
+            colorBox(pawnMoves);
+            currentPawnMoves.push(pawnMoves); 
+          } else {
+            console.log(`possible moves of ${selectedPiece}: movement not possible`);
+          }
+        }else if(userPieceColor=="black"){
+          let coordJ = parseInt(j) - 1;
+          let pawnMoves = i + coordJ;
+          if (j < 8) {
+            console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
+            colorBox(pawnMoves);
+            currentPawnMoves.push(pawnMoves); 
+          } else {
+            console.log(`possible moves of ${selectedPiece}: movement not possible`);
+          }
         }
-        
-
       } else if (selectedPiece == "rook") {
         // Horizontal moves
         for (let col = 0; col < labels.cols.length; col++) {
@@ -353,7 +380,6 @@ function placePiece(event) {
       }
             }
     }
-
     possibleMoves(selectedPiece);
   }
 
@@ -381,4 +407,3 @@ drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
 createRemoveBtn();
-
