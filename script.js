@@ -90,12 +90,12 @@ let movesListList; //kind of a list to store moveList
 
 //  displaying the moves
 function MovesDisplay() {
-  if(currentPawnMoves){
+  if (currentPawnMoves) {
     const movesHeading = document.getElementById("movesHeading");
     movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
   
     // moves display box
-    movesText = document.getElementsById("movesText");
+    const movesText = document.getElementById("movesText");
     movesText.textContent = currentPawnMoves.join(", ");
   }
 }
