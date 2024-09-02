@@ -88,18 +88,6 @@ function createLeftTray() {
 }
 let movesListList; //kind of a list to store moveList
 
-//  displaying the moves
-function MovesDisplay() {
-  if (currentPawnMoves) {
-    const movesHeading = document.getElementById("movesHeading");
-    movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
-  
-    // moves display box
-    const movesText = document.getElementById("movesText");
-    movesText.textContent = currentPawnMoves.join(", ");
-  }
-}
-
 //  actually stores moves for every piece!
 let currentPawnMoves = []; 
 
@@ -126,7 +114,7 @@ function removeBoxColor() {
 function placePiece(event) {
   const target = event.target;
   if (target.classList.contains("box") && selectedPiece && !piecePlaced) {
-    let userPieceColor=prompt("choose piece color", "white");
+    let userPieceColor = prompt("choose piece color", "white");
     switch (userPieceColor) {
       case "white":
         target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-W.png')`;
@@ -134,14 +122,14 @@ function placePiece(event) {
         target.style.backgroundPosition = "center";
         document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
         break;
-  
+
       case "black":
         target.style.backgroundImage = `url('assets/chessPieces/${selectedPiece}-B.png')`;
         target.style.backgroundSize = "cover";
         target.style.backgroundPosition = "center";
         document.querySelectorAll(".btn").forEach((btn) => btn.setAttribute("disabled", true));
         break;
-  
+
       default:
         userPieceColor = prompt("choose piece color", "white");
         break;
@@ -152,11 +140,10 @@ function placePiece(event) {
     piecePlaced = true;
     lastPlacedPiece = target;
 
-
     function possibleMoves(selectedPiece) {
       let currCoordStr = [...currentLoc];
       let [i, j] = currCoordStr;
-
+    
       // for pieces
       if (selectedPiece == "pawn") {
         if(userPieceColor=="white"){
@@ -165,7 +152,6 @@ function placePiece(event) {
           if (j < 8) {
             console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
             colorBox(pawnMoves);
-            currentPawnMoves.push(pawnMoves); 
           } else {
             console.log(`possible moves of ${selectedPiece}: movement not possible`);
           }
@@ -389,38 +375,53 @@ function placePiece(event) {
           currentPawnMoves.push(move);
         }
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
-
+    
       }
             }
     }
     possibleMoves(selectedPiece);
     MovesDisplay();  
-    return target; 
+    return target;
   }
+
+  //  displaying the moves
+function MovesDisplay() {
+  if (currentPawnMoves) {
+    const movesHeading = document.getElementById("movesHeading");
+    movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
   
-  function movePiece(event) {
-    const target2 = event.target;
-    if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
-      let currentLoc2 = target2.id;  
-      if (currentPawnMoves.includes(currentLoc2)) {
+    // moves display box
+    const movesText = document.getElementById("movesText");
+    movesText.textContent = currentPawnMoves.join(", ");
+  }
+}
+
+  
+function movePiece(event) {
+  const target2 = event.target;
+  if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
+    let currentLoc2 = target2.id;  
+    if (currentPawnMoves.includes(currentLoc2)) {
+      if (lastPlacedPiece) {
         target2.style.backgroundImage = lastPlacedPiece.style.backgroundImage;
         target2.style.backgroundSize = "cover";
         target2.style.backgroundPosition = "center";
-  
+        
         lastPlacedPiece.style.backgroundImage = "";
-  
         lastPlacedPiece = target2;
+        movesText.textContent = currentPawnMoves.join(", ");
         currentPawnMoves = currentPawnMoves.filter(loc => loc !== currentLoc2);
         removeBoxColor();        
         currentPawnMoves = [];
-        movesText.textContent = "Piece moved successfully!";
-      } else {
-        movesText.textContent = "Illegal move :(";
       }
+    } else if (!currentPawnMoves.includes(currentLoc2)) {
+      movesText.textContent = "Illegal move :(";
     }
   }
+}
+
   
-  
+
 // Removing piece
 function createRemoveBtn() {
   const removeBtn = document.createElement("button");
