@@ -1,3 +1,4 @@
+
 // Chess Board Layout and Markups
 const labels = {
   rows: ["8", "7", "6", "5", "4", "3", "2", "1"],
@@ -152,6 +153,8 @@ function placePiece(event) {
           if (j < 8) {
             console.log(`possible moves of ${selectedPiece}: ${i}${coordJ}`);
             colorBox(pawnMoves);
+            currentPawnMoves.push(pawnMoves);
+            movesText.textContent = currentPawnMoves.join(", ");
           } else {
             console.log(`possible moves of ${selectedPiece}: movement not possible`);
           }
@@ -397,7 +400,7 @@ function MovesDisplay() {
 }
 
   
-function movePiece(event) {
+ function movePiece(event) {
   const target2 = event.target;
   if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
     let currentLoc2 = target2.id;  
@@ -414,13 +417,11 @@ function movePiece(event) {
         removeBoxColor();        
         currentPawnMoves = [];
       }
-    } else if (!currentPawnMoves.includes(currentLoc2)) {
-      movesText.textContent = "Illegal move :(";
+    } else if (currentPawnMoves.includes(currentLoc2)) {
+      movesText.textContent = "Illegal move :";
     }
   }
 }
-
-  
 
 // Removing piece
 function createRemoveBtn() {
@@ -450,8 +451,6 @@ function createRemoveBtn() {
 
   document.body.appendChild(removeBtn);
 }
-
-
 
 drawBoard();
 createLeftTray();
