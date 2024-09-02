@@ -90,29 +90,13 @@ let movesListList; //kind of a list to store moveList
 
 //  displaying the moves
 function MovesDisplay() {
-  // heading box
-  const movesHeadingBox = document.createElement("div");
-  movesHeadingBox.classList.add("movesHeadingBox");
-  document.body.appendChild(movesHeadingBox);
-
-  if(currentPawnMoves!=""){
-    
-    const movesHeading = document.createElement("h1");
+  if(currentPawnMoves){
+    const movesHeading = document.getElementById("movesHeading");
     movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
-    movesHeading.classList.add("movesHeading");
-  
-    movesHeadingBox.appendChild(movesHeading);
   
     // moves display box
-    const movesDisplayBox = document.createElement("div");
-    movesDisplayBox.classList.add("movesDisplayBox");
-  
-    const movesText = document.createElement("p");
+    movesText = document.getElementsById("movesText");
     movesText.textContent = currentPawnMoves.join(", ");
-    movesText.classList.add("movesText");
-  
-    movesDisplayBox.appendChild(movesText);
-    document.body.appendChild(movesDisplayBox);
   }
 }
 
@@ -417,8 +401,7 @@ function placePiece(event) {
   function movePiece(event) {
     const target2 = event.target;
     if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
-      let currentLoc2 = target2.id;
-      
+      let currentLoc2 = target2.id;  
       if (currentPawnMoves.includes(currentLoc2)) {
         target2.style.backgroundImage = lastPlacedPiece.style.backgroundImage;
         target2.style.backgroundSize = "cover";
@@ -427,7 +410,7 @@ function placePiece(event) {
         lastPlacedPiece.style.backgroundImage = "";
   
         lastPlacedPiece = target2;
-        currentPawnMoves.pop(currentLoc2);
+        currentPawnMoves = currentPawnMoves.filter(loc => loc !== currentLoc2);
         removeBoxColor();        
         currentPawnMoves = [];
         movesText.textContent = "Piece moved successfully!";
@@ -460,12 +443,13 @@ function createRemoveBtn() {
       movesListList.remove();
       movesListList = null; 
     }
-    
+
     console.clear();
   });
 
   document.body.appendChild(removeBtn);
 }
+
 
 
 drawBoard();
