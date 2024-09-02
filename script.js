@@ -12,7 +12,7 @@ const createBox = (i, j) => {
   const box = document.createElement("div");
   box.classList.add("box");
 
-  //  settigng box ID 
+  //  box ID 
   box.id = `${labels.cols[j]}${labels.rows[i]}`;
   if ((i + j) % 2 !== 0) box.style.backgroundColor = "black";
   return box;
@@ -59,7 +59,7 @@ function drawBoard() {
   );
 }
 
-// create labels
+// labels
 function createLabel(text) {
   const label = document.createElement("div");
   label.classList.add("row-label");
@@ -95,25 +95,26 @@ function MovesDisplay() {
   movesHeadingBox.classList.add("movesHeadingBox");
   document.body.appendChild(movesHeadingBox);
 
-  const movesHeading = document.createElement("h1");
-  movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
-  movesHeading.classList.add("movesHeading");
-
-  movesHeadingBox.appendChild(movesHeading);
-
-  // moves display box
-  const movesDisplayBox = document.createElement("div");
-  movesDisplayBox.classList.add("movesDisplayBox");
-
-  const movesText = document.createElement("p");
-  movesText.textContent = currentPawnMoves.join(", ");
-  movesText.classList.add("movesText");
-
-  movesDisplayBox.appendChild(movesText);
-  document.body.appendChild(movesDisplayBox);
+  if(currentPawnMoves!=""){
+    
+    const movesHeading = document.createElement("h1");
+    movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
+    movesHeading.classList.add("movesHeading");
+  
+    movesHeadingBox.appendChild(movesHeading);
+  
+    // moves display box
+    const movesDisplayBox = document.createElement("div");
+    movesDisplayBox.classList.add("movesDisplayBox");
+  
+    const movesText = document.createElement("p");
+    movesText.textContent = currentPawnMoves.join(", ");
+    movesText.classList.add("movesText");
+  
+    movesDisplayBox.appendChild(movesText);
+    document.body.appendChild(movesDisplayBox);
+  }
 }
-
-
 
 //  actually stores moves for every piece!
 let currentPawnMoves = []; 
@@ -426,7 +427,8 @@ function placePiece(event) {
         lastPlacedPiece.style.backgroundImage = "";
   
         lastPlacedPiece = target2;
-        
+        currentPawnMoves.pop(currentLoc2);
+        removeBoxColor();        
         currentPawnMoves = [];
         movesText.textContent = "Piece moved successfully!";
       } else {
@@ -448,11 +450,7 @@ function createRemoveBtn() {
       lastPlacedPiece = null;
       piecePlaced = false;
       removeBoxColor(); 
-      currentPawnMoves.forEach((i)=>{
-        i.style.backgroundImage="";
-      });
       currentPawnMoves = []; 
-      
     }
     selectedPiece = ""; 
 
