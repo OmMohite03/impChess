@@ -114,6 +114,10 @@ function removeBoxColor() {
 // Placing a piece
 function placePiece(event) {
   const target = event.target;
+  if (!selectedPiece) {
+    alert("Please select a piece first");
+    return;
+  }
   if (target.classList.contains("box") && selectedPiece && !piecePlaced) {
     let userPieceColor = prompt("choose piece color", "white");
     switch (userPieceColor) {
