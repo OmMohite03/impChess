@@ -15,6 +15,7 @@ let selectedPiece = "",
   piecePlaced = false,
   lastPlacedPiece = null;
 
+// creating boxes
 const createBox = (i, j) => {
   const box = document.createElement("div");
   box.classList.add("box");
@@ -25,6 +26,7 @@ const createBox = (i, j) => {
   return box;
 };
 
+// creating chessboard
 function drawBoard() {
   const boardDiv = document.getElementById("board");
   boardDiv.classList.add("boardDiv");
@@ -66,7 +68,7 @@ function drawBoard() {
   );
 }
 
-// labels
+// adding labels
 function createLabel(text) {
   const label = document.createElement("div");
   label.classList.add("row-label");
@@ -94,7 +96,7 @@ function createLeftTray() {
   return tray;
 }
 
-
+// styling boxes
 function colorBox(pawnMoves) {
   const updatedBox = document.getElementById(pawnMoves);
   updatedBox.style.backgroundImage = "url('./assets/red.jpg')";
@@ -104,6 +106,7 @@ function colorBox(pawnMoves) {
 
 }
 
+// removing box styles
 function removeBoxColor() {
   currentPawnMoves.forEach((move) => {
     const removedBox = document.getElementById(move);
@@ -395,11 +398,11 @@ function placePiece(event) {
     return target;
   }
 
-  //  displaying the moves
+//  displaying the moves
 function MovesDisplay() {
   const movesHeading = document.getElementById("movesHeading");
   
-  // moves display box
+// moves display box
   const movesText = document.getElementById("movesText");
   if (currentPawnMoves.length > 0) {
     movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
@@ -410,6 +413,7 @@ function MovesDisplay() {
   }
 }
  
+// moving piece
  function movePiece(event) {
   const target2 = event.target;
   if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
@@ -462,7 +466,6 @@ function createRemoveBtn() {
 
   document.body.appendChild(removeBtn);
 }
-
 
 // func calls
 drawBoard();
