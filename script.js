@@ -1,3 +1,9 @@
+// declarations
+let movesListList; //kind of a list to store moveList
+
+//  actually stores moves for every piece!
+let currentPawnMoves = []; 
+
 
 // Chess Board Layout and Markups
 const labels = {
@@ -87,10 +93,7 @@ function createLeftTray() {
   });
   return tray;
 }
-let movesListList; //kind of a list to store moveList
 
-//  actually stores moves for every piece!
-let currentPawnMoves = []; 
 
 function colorBox(pawnMoves) {
   const updatedBox = document.getElementById(pawnMoves);
@@ -382,8 +385,9 @@ function placePiece(event) {
           currentPawnMoves.push(move);
         }
         console.log(`possible moves of ${selectedPiece}: ${currentPawnMoves.join(", ")}`);
-    
+        console.log(currentPawnMoves);
       }
+
             }
     }
     possibleMoves(selectedPiece);
@@ -393,17 +397,19 @@ function placePiece(event) {
 
   //  displaying the moves
 function MovesDisplay() {
-  if (currentPawnMoves) {
-    const movesHeading = document.getElementById("movesHeading");
-    movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
+  const movesHeading = document.getElementById("movesHeading");
   
-    // moves display box
-    const movesText = document.getElementById("movesText");
+  // moves display box
+  const movesText = document.getElementById("movesText");
+  if (currentPawnMoves.length > 0) {
+    movesHeading.textContent = `Selected Piece: ${selectedPiece}`;
     movesText.textContent = currentPawnMoves.join(", ");
+  }else{
+    movesText.remove();
+    movesHeading.remove();
   }
 }
-
-  
+ 
  function movePiece(event) {
   const target2 = event.target;
   if (target2.classList.contains("box") && selectedPiece && piecePlaced) {
@@ -413,7 +419,7 @@ function MovesDisplay() {
         target2.style.backgroundImage = lastPlacedPiece.style.backgroundImage;
         target2.style.backgroundSize = "cover";
         target2.style.backgroundPosition = "center";
-        
+        target2.style.opacity = "1";
         lastPlacedPiece.style.backgroundImage = "";
         lastPlacedPiece = target2;
         movesText.textContent = currentPawnMoves.join(", ");
@@ -440,6 +446,7 @@ function createRemoveBtn() {
       piecePlaced = false;
       removeBoxColor(); 
       currentPawnMoves = []; 
+      MovesDisplay();
     }
     selectedPiece = ""; 
 
@@ -450,12 +457,14 @@ function createRemoveBtn() {
       movesListList = null; 
     }
 
-    console.clear();
+    // console.clear();
   });
 
   document.body.appendChild(removeBtn);
 }
 
+
+// func calls
 drawBoard();
 createLeftTray();
 document.getElementById("board").addEventListener("click", placePiece);
