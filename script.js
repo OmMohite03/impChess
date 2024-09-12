@@ -66,7 +66,7 @@ function drawBoard() {
     }),
     document.createElement("div")
   );
-}
+}   
 
 // adding labels
 function createLabel(text) {
